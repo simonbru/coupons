@@ -6,8 +6,8 @@
 
     <div class="row">
       {% for coupon in category.coupons.all %}
-        <a href="{% url 'coupon_detail' coupon.pk %}">
-          <div class="col-sm-4">
+        <a href="{% url 'coupon_detail' coupon.pk %}" class="coupon-link">
+          <div class="col-md-4 col-sm-6 coupon-card">
             <h4>{{ coupon.title }} </h4>
             <strong>{{ coupon.price }} Fr.</strong>
           </div>

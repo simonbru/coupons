@@ -6,3 +6,12 @@
 .barcode-image {
     width: 100%;
 }
+
+
+.coupon-link {
+    color: #333;
+}
+
+.coupon-card {
+    margin-bottom: 30px;
+}
