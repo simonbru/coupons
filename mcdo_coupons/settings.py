@@ -11,21 +11,22 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from decouple import config, Csv
+from os import path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+BASE_DIR = path.dirname(path.dirname(path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '624faug)#^^0g+8xc!&gf*2*i2en6=#j%017+t9qfaj9zpxfd+'
+SECRET_KEY = config('SECRET_KEY', default=None)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=Csv())
 
 
 # Application definition
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
+    'bootstrap3',
     'coupons.apps.CouponsConfig',
 ]
 
@@ -104,9 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Zurich'
 
 USE_I18N = True
 
@@ -118,4 +121,37 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+STATIC_ROOT = path.join(BASE_DIR, 'collected-static')
+
 STATIC_URL = '/static/'
+
+NODE_MODULES = path.join(BASE_DIR, 'node_modules')
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+]
+
+COMPRESS_OFFLINE = True
+COMPRESS_ENABLED = not DEBUG
+
+COMPRESS_CSS_FILTERS = (
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'django_compressor_autoprefixer.AutoprefixerFilter',
+    'compressor.filters.cssmin.rCSSMinFilter',
+)
+
+COMPRESS_AUTOPREFIXER_BINARY = path.join(
+    NODE_MODULES, 'postcss-cli/bin/postcss'
+)
+
+BOOTSTRAP3 = {
+    # Disable emphasizing valid input values
+    'success_css_class': '',
+}
+
+STATICFILES_DIRS = [
+    ('bootstrap', path.join(NODE_MODULES, 'bootstrap/dist/')),
+    ('jquery', path.join(NODE_MODULES, 'jquery/dist')),
+]
