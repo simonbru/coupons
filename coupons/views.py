@@ -1,5 +1,8 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView, ListView
+from django.views.generic import (
+    TemplateView,
+    ListView,
+    DetailView,
+)
 
 from coupons.models import Coupon, Category
 
@@ -16,3 +19,7 @@ class CouponListView(ListView):
             **super().get_context_data(**kwargs),
             'categories': Category.objects.all(),
         }
+
+
+class CouponDetailView(DetailView):
+    model = Coupon

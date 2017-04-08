@@ -6,10 +6,12 @@
 
     <div class="row">
       {% for coupon in category.coupons.all %}
-        <div class="col-sm-4">
-          <h4>{{ coupon.title }} </h4>
-          <strong>{{ coupon.price }} Fr.</strong>
-        </div>
+        <a href="{% url 'coupon_detail' coupon.pk %}">
+          <div class="col-sm-4">
+            <h4>{{ coupon.title }} </h4>
+            <strong>{{ coupon.price }} Fr.</strong>
+          </div>
+        </a>
       {% endfor %}
 
     </div>

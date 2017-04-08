@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>
+    {{ coupon.title }}
+    <small>{{ coupon.price }} Fr.</small>
+  </h1>
+
+  <h2>{{ coupon.barcode }}</h2>
+{% endblock %}

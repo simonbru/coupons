@@ -17,11 +17,16 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.shortcuts import redirect
 
-from coupons.views import FirstView, CouponListView
+from coupons.views import (
+    FirstView,
+    CouponListView,
+    CouponDetailView,
+)
 
 urlpatterns = [
     url(r'^$', lambda r: redirect('coupon_list'), name='index'),
     url(r'^coupons/$', CouponListView.as_view(), name='coupon_list'),
+    url(r'^coupons/(?P<pk>\d+)/$', CouponDetailView.as_view(), name='coupon_detail'),
     url(r'', include('django.contrib.auth.urls')),
     url(r'^admin/', admin.site.urls),
 ]
