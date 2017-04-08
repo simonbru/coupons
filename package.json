@@ -1,0 +1,20 @@
+{
+  "name": "mcdo-coupons",
+  "version": "1.0.0",
+  "description": "McDonald's coupons",
+  "main": "",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:simonbru/mcdo-coupons.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.7",
+    "postcss-cli": "^3.1.1"
+  }
+}
