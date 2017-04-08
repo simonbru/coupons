@@ -1,0 +1,16 @@
+venv/
+collected-static/
+node_modules/
+uploads/
+.cache/
+.env
+.idea
+.coverage
+.coverage.*
+.DS_Store
+*.iml
+*.sublime-*
+*.pyc
+*.sqlite*
+*.mo
+*.log
