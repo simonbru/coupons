@@ -1,8 +1,12 @@
+import barcode
+from django.http import HttpResponse
+from django.views import View
 from django.views.generic import (
     TemplateView,
     ListView,
     DetailView,
 )
+from django.views.generic.detail import SingleObjectMixin
 
 from coupons.models import Coupon, Category
 
@@ -23,3 +27,14 @@ class CouponListView(ListView):
 
 class CouponDetailView(DetailView):
     model = Coupon
+
+
+class CouponBarcodeView(SingleObjectMixin, View):
+    model = Coupon
+
+    def get(self, request, *args, **kwargs):
+        coupon = self.get_object()
+        barcode_svg = barcode.EAN13(coupon.barcode).render()
+        return HttpResponse(
+            barcode_svg, content_type='image/svg+xml'
+        )

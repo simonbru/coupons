@@ -21,12 +21,21 @@ from coupons.views import (
     FirstView,
     CouponListView,
     CouponDetailView,
-)
+    CouponBarcodeView)
 
 urlpatterns = [
     url(r'^$', lambda r: redirect('coupon_list'), name='index'),
     url(r'^coupons/$', CouponListView.as_view(), name='coupon_list'),
-    url(r'^coupons/(?P<pk>\d+)/$', CouponDetailView.as_view(), name='coupon_detail'),
+    url(
+        r'^coupons/(?P<pk>\d+)/$',
+        CouponDetailView.as_view(),
+        name='coupon_detail'
+    ),
+    url(
+        r'^coupons/(?P<pk>\d+)/barcode/$',
+        CouponBarcodeView.as_view(),
+        name='coupon_barcode'
+    ),
     url(r'', include('django.contrib.auth.urls')),
     url(r'^admin/', admin.site.urls),
 ]
