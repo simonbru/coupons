@@ -15,11 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.shortcuts import redirect
 
-from coupons.views import FirstView
+from coupons.views import FirstView, CouponListView
 
 urlpatterns = [
-    url(r'^$', FirstView.as_view(), name='index'),
+    url(r'^$', lambda r: redirect('coupon_list'), name='index'),
+    url(r'^coupons/$', CouponListView.as_view(), name='coupon_list'),
     url(r'', include('django.contrib.auth.urls')),
     url(r'^admin/', admin.site.urls),
 ]

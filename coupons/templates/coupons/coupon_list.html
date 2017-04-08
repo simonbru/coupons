@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for category in categories %}
+    <h2>{{ category }}</h2>
+
+    <div class="row">
+      {% for coupon in category.coupons.all %}
+        <div class="col-sm-4">
+          <h4>{{ coupon.title }} </h4>
+          <strong>{{ coupon.price }} Fr.</strong>
+        </div>
+      {% endfor %}
+
+    </div>
+  {% endfor %}
+{% endblock %}
