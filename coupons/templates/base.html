@@ -1,0 +1,92 @@
+{% load bootstrap3 compress i18n staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>
+    {% block head_title %}
+      Bons McDo
+    {% endblock head_title %}
+  </title>
+
+  {% block head_css %}
+    {% compress css %}
+      <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}"/>
+
+      <link rel="stylesheet" type="text/css" href="{% static 'coupons/styles/app.css' %}"/>
+    {% endcompress css %}
+  {% endblock head_css %}
+</head>
+
+<body>
+{% block body %}
+  {% block navbar %}
+    <nav class="navbar navbar-inverse" role="navigation" id="top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">{% trans 'Toggle navigation' %}</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          {% block navbar_header %}
+            <a href="{% url 'index' %}" class="navbar-brand">Bons McDo</a>
+          {% endblock navbar_header %}
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            {% if user.is_superuser %}
+              <li>
+                <a href="{% url 'admin:index' %}">Administration</a>
+              </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  {% bootstrap_icon 'user' %} {{ user }} <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a href="{% url 'password_change' %}">Changer le mot de passe</a>
+                  </li>
+                  <li role="separator" class="divider"></li>
+                  <li>
+                    <a href="{% url 'logout' %}">
+                      Se déconnecter
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            {% else %}
+              <li>
+                <a href="{% url 'admin:login' %}">Se connecter</a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+  {% endblock navbar %}
+
+
+  <div class="container">
+    {% bootstrap_messages %}
+
+    {% block content %} {% endblock content %}
+  </div>
+{% endblock body %}
+
+{% block body_scripts %}
+  {% compress js %}
+    <script type="text/javascript" src="{% static 'jquery/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'coupons/js/app.js' %}"></script>
+  {% endcompress %}
+{% endblock body_scripts %}
+</body>
+</html>
