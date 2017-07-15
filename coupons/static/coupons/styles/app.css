@@ -7,13 +7,12 @@
     width: 100%;
 }
 
-
-.coupon-link {
-    color: #333;
+.coupon-card:hover {
+    opacity: 0.9;
 }
 
-.coupon-card {
-    margin-bottom: 30px;
+.coupon-link:hover {
+    text-decoration: none;
 }
 
 .coupon-price {
@@ -21,6 +20,35 @@
     font-size: 15px;
 }
 
-.coupon-card .comments {
-    margin-top: 8px;
+.panel-brown {
+    border-color: #3B3B32;
+}
+
+.panel-brown .panel-heading {
+    background: #3B3B32;
+    color: white;
+}
+
+.panel-brown .panel-title {
+    font-weight: bold;
+}
+
+
+/* Override bootstrap colors */
+* {
+    color: #3B3B32;
+}
+
+.navbar-inverse {
+    background-color: #3B3B32;
+    border-color: #3B3B32;
+}
+
+.navbar-brand {
+    color: #FFCA40 !important;
+    font-weight: bold;
+}
+
+.navbar-nav a {
+    color: white !important;
 }
