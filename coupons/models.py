@@ -57,6 +57,13 @@ class Coupon(models.Model):
     def __str__(self):
         return f'{self.title} - {self.price}'
 
+    def last_comment_per_place(self):
+        places = {}
+        for comment in self.comments.order_by('-created_at'):
+            if comment.restaurant not in places:
+                places[comment.restaurant] = comment
+        return places
+
 
 class RestaurantManager(models.Manager):
 

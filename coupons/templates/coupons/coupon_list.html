@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load bootstrap3 humanize %}
+
 {% block content %}
   {% for category in categories %}
     <h2>{{ category }}</h2>
@@ -10,6 +12,18 @@
           <div class="col-md-4 col-sm-6 coupon-card">
             <h4>{{ coupon.title }} </h4>
             <strong>{{ coupon.price }} Fr.</strong>
+            <div class="comments">
+              {% for place, comment in coupon.last_comment_per_place.items %}
+                <div>
+                  {% if comment.does_coupon_work %}
+                    {% bootstrap_icon 'ok-circle' extra_classes='text-success' %}
+                  {% else %}
+                    {% bootstrap_icon 'remove-circle' extra_classes='text-danger' %}
+                  {% endif %}
+                  {{ place }}
+                </div>
+              {% endfor %}
+            </div>
           </div>
         </a>
       {% endfor %}

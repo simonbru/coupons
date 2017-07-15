@@ -15,3 +15,7 @@
 .coupon-card {
     margin-bottom: 30px;
 }
+
+.coupon-card .comments {
+    margin-top: 8px;
+}
