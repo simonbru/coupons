@@ -90,7 +90,7 @@ class Restaurant(models.Model):
         ordering = ('name', 'address')
 
     def __str__(self):
-        return f'{self.id} - {self.lat},{self.lon}'
+        return f'{self.address}'
 
 
 class Comment(models.Model):
@@ -114,6 +114,14 @@ class Comment(models.Model):
         unpack_ipv4=True,
     )
     does_coupon_work = models.BooleanField(
-        verbose_name='le coupon marche-t-il',
+        verbose_name='le coupon marche-t-il ?',
         default=True,
     )
+
+    class Meta:
+        verbose_name = 'commentaire'
+        verbose_name_plural = 'commentaires'
+        ordering = ('-created_at',)
+
+    def __str__(self):
+        return f'{self.created_at}, {self.does_coupon_work}'
