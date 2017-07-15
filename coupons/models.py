@@ -56,3 +56,38 @@ class Coupon(models.Model):
 
     def __str__(self):
         return f'{self.title} - {self.price}'
+
+
+class Restaurant(models.Model):
+    id = models.CharField(
+        verbose_name='place id',
+        primary_key=True,
+        max_length=50,
+        help_text="ID du lieu selon l'API de Google Maps",
+    )
+    name = models.CharField(
+        verbose_name='nom',
+        max_length=80,
+    )
+    address = models.CharField(
+        verbose_name='adresse',
+        max_length=150,
+    )
+    lat = models.DecimalField(
+        verbose_name='latitude',
+        max_digits=9,
+        decimal_places=6,
+    )
+    lon = models.DecimalField(
+        verbose_name='longitude',
+        max_digits=9,
+        decimal_places=6,
+    )
+
+    class Meta:
+        verbose_name = 'restaurant'
+        verbose_name_plural = 'restaurants'
+        ordering = ('name', 'address')
+
+    def __str__(self):
+        return f'{self.id} - {self.lat},{self.lon}'
