@@ -58,6 +58,21 @@ class Coupon(models.Model):
         return f'{self.title} - {self.price}'
 
 
+class RestaurantManager(models.Manager):
+
+    # Use Fribourg as default location
+    FRIBOURG_LOC = (46.802352, 7.151291)
+
+    def by_distance(self, lat=FRIBOURG_LOC[0], lon=FRIBOURG_LOC[1]):
+        """Queryset ordered by estimated distance to given location"""
+        lat = float(lat)
+        lon = float(lon)
+        return Restaurant.objects.extra(
+            select={'distance': 'abs(lat - %s) + abs(lon - %s)'},
+            select_params=(lat, lon),
+        ).order_by('distance')
+
+
 class Restaurant(models.Model):
     id = models.CharField(
         verbose_name='place id',
@@ -83,6 +98,8 @@ class Restaurant(models.Model):
         max_digits=9,
         decimal_places=6,
     )
+
+    objects = RestaurantManager()
 
     class Meta:
         verbose_name = 'restaurant'
