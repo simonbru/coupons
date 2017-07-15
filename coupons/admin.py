@@ -15,9 +15,10 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['address', 'name', 'lat', 'lon']
+    search_fields = ['address', 'name']
 
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['created_at', 'does_coupon_work', 'coupon', 'restaurant']
