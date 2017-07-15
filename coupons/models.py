@@ -91,3 +91,29 @@ class Restaurant(models.Model):
 
     def __str__(self):
         return f'{self.id} - {self.lat},{self.lon}'
+
+
+class Comment(models.Model):
+    coupon = models.ForeignKey(
+        'Coupon',
+        on_delete=models.CASCADE,
+        related_name='comments',
+    )
+    restaurant = models.ForeignKey(
+        'Restaurant',
+        on_delete=models.CASCADE,
+        related_name='comments',
+    )
+    created_at = models.DateTimeField(
+        verbose_name='créé le',
+        default=now,
+    )
+    author_ip = models.GenericIPAddressField(
+        verbose_name="addresse IP de l'auteur",
+        protocol='both',
+        unpack_ipv4=True,
+    )
+    does_coupon_work = models.BooleanField(
+        verbose_name='le coupon marche-t-il',
+        default=True,
+    )
