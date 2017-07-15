@@ -9,20 +9,28 @@
     <div class="row">
       {% for coupon in category.coupons.all %}
         <a href="{% url 'coupon_detail' coupon.pk %}" class="coupon-link">
-          <div class="col-md-4 col-sm-6 coupon-card">
-            <h4>{{ coupon.title }} </h4>
-            <strong>{{ coupon.price }} Fr.</strong>
-            <div class="comments">
-              {% for place, comment in coupon.last_comment_per_place.items %}
-                <div>
-                  {% if comment.does_coupon_work %}
-                    {% bootstrap_icon 'ok-circle' extra_classes='text-success' %}
-                  {% else %}
-                    {% bootstrap_icon 'remove-circle' extra_classes='text-danger' %}
-                  {% endif %}
-                  {{ place }}
+          <div class="col-md-4 col-sm-6">
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h3 class="panel-title">{{ coupon.title }}</h3>
+              </div>
+              <div class="panel-body">
+                <div class="coupon-price">
+                  Prix: <strong>{{ coupon.price }} Fr.</strong>
                 </div>
-              {% endfor %}
+                <div class="comments">
+                  {% for place, comment in coupon.last_comment_per_place.items %}
+                    <div>
+                      {% if comment.does_coupon_work %}
+                        {% bootstrap_icon 'ok-circle' extra_classes='text-success' %}
+                      {% else %}
+                        {% bootstrap_icon 'remove-circle' extra_classes='text-danger' %}
+                      {% endif %}
+                      {{ place }}
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
             </div>
           </div>
         </a>

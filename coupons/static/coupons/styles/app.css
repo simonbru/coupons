@@ -16,6 +16,11 @@
     margin-bottom: 30px;
 }
 
+.coupon-price {
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
 .coupon-card .comments {
     margin-top: 8px;
 }
