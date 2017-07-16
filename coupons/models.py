@@ -114,7 +114,19 @@ class Restaurant(models.Model):
         ordering = ('address',)
 
     def __str__(self):
-        return f'{self.address}'
+        return f'{self.city}, {self.short_address}'
+
+    @property
+    def city(self):
+        parts = self.address.split(',')
+        if len(parts) > 0:
+            return parts[-1]
+
+    @property
+    def short_address(self):
+        parts = self.address.split(',')
+        if len(parts) > 1:
+            return parts[0]
 
 
 class Comment(models.Model):
