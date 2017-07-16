@@ -24,6 +24,8 @@
         {{ place }} -
         <em>{{ comment.created_at|naturaltime }}</em>
       </div>
+    {% empty %}
+      <em>Aucune</em>
     {% endfor %}
   </div>
 
