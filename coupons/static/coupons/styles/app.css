@@ -13,6 +13,7 @@
 
 .coupon-link:hover {
     text-decoration: none;
+    color: #3B3B32;
 }
 
 .coupon-price {
@@ -35,7 +36,7 @@
 
 
 /* Override bootstrap colors */
-* {
+body, a {
     color: #3B3B32;
 }
 
@@ -49,6 +50,12 @@
     font-weight: bold;
 }
 
-.navbar-nav a {
+.navbar-nav > li > a {
     color: white !important;
+}
+
+@media (max-width: 767px) {
+    .navbar-nav .dropdown-menu a {
+        color: white !important;
+    }
 }
