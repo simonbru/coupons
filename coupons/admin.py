@@ -15,7 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Restaurant)
 class RestaurantAdmin(admin.ModelAdmin):
-    list_display = ['city', 'short_address', 'name', 'lat', 'lon']
+    list_display = ['name', 'short_address', 'city', 'lat', 'lon']
     search_fields = ['address', 'name']
 
 

@@ -116,10 +116,10 @@ class Restaurant(models.Model):
     class Meta:
         verbose_name = 'restaurant'
         verbose_name_plural = 'restaurants'
-        ordering = ('address',)
+        ordering = ('name',)
 
     def __str__(self):
-        return f'{self.city}, {self.short_address}'
+        return self.name
 
     @property
     def city(self):
