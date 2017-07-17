@@ -67,7 +67,7 @@ class CouponDetailView(DetailView):
             comment.save()
             messages.success(
                 request,
-                "Votre commentaire a bien été pris en compte."
+                "Votre note a bien été pris en compte."
             )
             return redirect('coupon_detail', self.get_object().id)
         else:

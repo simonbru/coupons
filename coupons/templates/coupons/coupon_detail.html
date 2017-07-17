@@ -13,7 +13,7 @@
   </div>
 
   <div>
-    <h3>Dernières utilisations</h3>
+    <h3>Dernières notes</h3>
     {% for place, comment in coupon.last_comment_per_place.items %}
       <div>
         {% if comment.does_coupon_work %}
@@ -30,7 +30,7 @@
   </div>
 
   <div>
-    <h3>Votre expérience</h3>
+    <h3>Notez ce bon</h3>
     <form method="post" novalidate>
       {% csrf_token %}
       {% bootstrap_form comment_form %}
