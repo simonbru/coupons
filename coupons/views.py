@@ -54,7 +54,9 @@ class CouponDetailView(DetailView):
     model = Coupon
 
     def get(self, request, *args, **kwargs):
-        self.comment_form = CommentForm()
+        self.comment_form = CommentForm(initial={
+            'restaurant': request.session.get('last_restaurant', None),
+        })
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -69,6 +71,7 @@ class CouponDetailView(DetailView):
                 request,
                 "Votre note a bien été pris en compte."
             )
+            request.session['last_restaurant'] = comment.restaurant_id
             return redirect('coupon_detail', self.get_object().id)
         else:
             return super().get(request, *args, **kwargs)
