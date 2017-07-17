@@ -8,6 +8,9 @@
     <small>{{ coupon.price }} Fr.</small>
   </h1>
 
+  {% if coupon.disabled %}
+    <h2 class="text-danger">Note: Ce bon ne semble plus fonctionner.</h2>
+  {% endif %}
   <div class="barcode-container col-xs-12 col-sm-7 col-md-6">
     <img src="{% url 'coupon_barcode' coupon.pk %}" class="barcode-image">
   </div>

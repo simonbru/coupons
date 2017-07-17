@@ -10,7 +10,7 @@
       {% for coupon in coupons %}
         <a href="{% url 'coupon_detail' coupon.pk %}" class="coupon-link">
           <div class="col-md-4 col-sm-6">
-            <div class="panel panel-brown coupon-card">
+            <div class="panel panel-brown coupon-card {% if coupon.disabled %} coupon-disabled {% endif %}">
               <div class="panel-heading">
                 <h3 class="panel-title">{{ coupon.title }}</h3>
               </div>

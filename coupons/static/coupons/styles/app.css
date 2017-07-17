@@ -34,6 +34,11 @@
     font-weight: bold;
 }
 
+.coupon-disabled .panel-heading {
+    background-color: #690606;
+    border-color: #690606;
+}
+
 
 /* Override bootstrap colors */
 body, a {
