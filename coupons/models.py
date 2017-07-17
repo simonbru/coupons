@@ -48,6 +48,11 @@ class Coupon(models.Model):
         default=now,
         editable=False,
     )
+    disabled = models.BooleanField(
+        verbose_name='désactivé',
+        default=False,
+        help_text='Masque le coupon pour les utilisateurs anonymes',
+    )
 
     class Meta:
         verbose_name = 'coupon'

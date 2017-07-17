@@ -3,11 +3,11 @@
 {% load bootstrap3 humanize %}
 
 {% block content %}
-  {% for category in categories %}
+  {% for category, coupons in by_category.items %}
     <h2>{{ category }}</h2>
 
     <div class="row">
-      {% for coupon in category.coupons.all %}
+      {% for coupon in coupons %}
         <a href="{% url 'coupon_detail' coupon.pk %}" class="coupon-link">
           <div class="col-md-4 col-sm-6">
             <div class="panel panel-brown coupon-card">

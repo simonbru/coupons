@@ -1,4 +1,5 @@
 import barcode
+import itertools
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -22,10 +23,30 @@ class FirstView(TemplateView):
 class CouponListView(ListView):
     model = Coupon
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.user.is_anonymous:
+            return queryset.filter(disabled=False)
+        else:
+            return queryset
+
+    def coupons_by_category(self):
+        def keyfunc(coupon):
+            return coupon.category_id
+        coupons = sorted(self.get_queryset(), key=keyfunc)
+        groups_list = [
+            list(coupons) for category_id, coupons
+            in itertools.groupby(coupons, key=keyfunc)
+        ]
+        return {
+            coupons[0].category: coupons
+            for coupons in groups_list
+        }
+
     def get_context_data(self, **kwargs):
         return {
             **super().get_context_data(**kwargs),
-            'categories': Category.objects.all(),
+            'by_category': self.coupons_by_category(),
         }
 
 
