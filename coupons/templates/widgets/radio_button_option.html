@@ -1,0 +1,14 @@
+{% load bootstrap3 %}
+
+<label
+  for="{{ widget.attrs.id }}"
+  class="
+    btn
+    {{ widget.label.css_classes }}
+    {% if widget.selected %} active {% endif %}
+  "
+>
+  {% bootstrap_icon widget.label.bs_icon %}
+  {{ widget.label }}
+  {% include "django/forms/widgets/input.html" %}
+</label>

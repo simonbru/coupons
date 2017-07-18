@@ -37,36 +37,11 @@
     <form method="post" class="comment-form" novalidate>
       {% csrf_token %}
 
-      {% with radios=comment_form.does_coupon_work %}
-
-      {% endwith %}
-
       <div data-toggle="buttons" class="form-group">
         {% for radio in comment_form.does_coupon_work %}
-          <label
-              for="{{ radio.id_for_label }}"
-              class="
-                btn
-                {% if radio.data.value == True %}
-                  btn-success
-                {% else %}
-                  btn-danger
-                {% endif %}
-                {% if radio.data.selected %} active {% endif %}
-              "
-          >
-            {% if radio.data.value == True %}
-              {% bootstrap_icon 'thumbs-up' %}
-            {% else %}
-              {% bootstrap_icon 'thumbs-down' %}
-            {% endif %}
-            {{ radio.choice_label }}
-            {{ radio.tag }}
-          </label>
+          {{ radio }}
         {% endfor %}
       </div>
-
-
 
       <div class="collapse comment-form-details">
         {% bootstrap_field comment_form.restaurant %}
