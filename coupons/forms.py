@@ -4,6 +4,13 @@ from .models import Comment, Restaurant
 
 
 class CommentForm(forms.ModelForm):
+    does_coupon_work = forms.ChoiceField(
+        choices=[
+            (True, "Fonctionne"),
+            (False, "Ne fonctionne pas"),
+        ],
+        widget=forms.RadioSelect,
+    )
     restaurant = forms.ModelChoiceField(
         queryset=Restaurant.objects.by_distance(),
     )
