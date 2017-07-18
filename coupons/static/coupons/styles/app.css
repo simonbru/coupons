@@ -57,6 +57,7 @@ body, a {
 .navbar-brand {
     color: #FFCA40 !important;
     font-weight: bold;
+    font-size: 21px;
 }
 
 .navbar-nav > li > a {
