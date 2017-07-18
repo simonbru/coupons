@@ -44,6 +44,14 @@ body {
 }
 
 
+.comment-panel {
+    margin-top: 30px;
+}
+
+.comment-panel .comment-title {
+    margin-top: 0;
+}
+
 /* Override bootstrap colors */
 body, a {
     color: #3B3B32;

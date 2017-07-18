@@ -32,21 +32,25 @@
     {% endfor %}
   </div>
 
-  <div>
-    <h3>Notez ce bon</h3>
-    <form method="post" class="comment-form" novalidate>
-      {% csrf_token %}
 
-      <div data-toggle="buttons" class="form-group">
-        {% for radio in comment_form.does_coupon_work %}
-          {{ radio }}
-        {% endfor %}
-      </div>
+  <div class="panel panel-default comment-panel">
+    <div class="panel-body">
+      <h3 class="comment-title">Notez ce bon</h3>
+      <form method="post" class="comment-form" novalidate>
+        {% csrf_token %}
 
-      <div class="collapse comment-form-details">
-        {% bootstrap_field comment_form.restaurant %}
-        {% bootstrap_button 'Envoyer' button_type='submit' %}
-      </div>
-    </form>
+        <div data-toggle="buttons" class="form-group">
+          {% for radio in comment_form.does_coupon_work %}
+            {{ radio }}
+          {% endfor %}
+        </div>
+
+        <div class="collapse comment-form-details">
+          {% bootstrap_field comment_form.restaurant %}
+          {% bootstrap_button 'Envoyer' button_type='submit' %}
+        </div>
+      </form>
+    </div>
+
   </div>
 {% endblock %}
