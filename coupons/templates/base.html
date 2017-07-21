@@ -1,7 +1,8 @@
-{% load bootstrap3 compress i18n staticfiles %}
+{% load analytical bootstrap3 compress i18n staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
+  {% analytical_head_top %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
 
@@ -18,9 +19,11 @@
       <link rel="stylesheet" type="text/css" href="{% static 'coupons/styles/app.css' %}"/>
     {% endcompress css %}
   {% endblock head_css %}
+  {% analytical_head_bottom %}
 </head>
 
 <body>
+{% analytical_body_top %}
 {% block body %}
   {% block navbar %}
     <nav class="navbar navbar-inverse" role="navigation" id="top">
@@ -88,5 +91,6 @@
     <script type="text/javascript" src="{% static 'coupons/js/app.js' %}"></script>
   {% endcompress %}
 {% endblock body_scripts %}
+{% analytical_body_bottom %}
 </body>
 </html>

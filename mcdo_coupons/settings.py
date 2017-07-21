@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'analytical',
     'compressor',
     'bootstrap3',
     'coupons.apps.CouponsConfig',
@@ -158,3 +159,6 @@ STATICFILES_DIRS = [
     ('bootstrap', path.join(NODE_MODULES, 'bootstrap/dist/')),
     ('jquery', path.join(NODE_MODULES, 'jquery/dist')),
 ]
+
+PIWIK_DOMAIN_PATH = config('PIWIK_DOMAIN_PATH', default=None)
+PIWIK_SITE_ID = config('PIWIK_SITE_ID', default=None)
