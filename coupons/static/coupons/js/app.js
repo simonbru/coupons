@@ -9,7 +9,8 @@ $(function() {
 })
 
 function displayCommentForm(form) {
-    if (form['does_coupon_work'].value) {
-        $(form).find('.comment-form-details').collapse('show')
+    var $form = $(form)
+    if ($form.find('[name=does_coupon_work]:checked').length > 0) {
+        $form.find('.comment-form-details').collapse('show')
     }
 }
