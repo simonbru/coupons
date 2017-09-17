@@ -88,7 +88,11 @@ class CouponBarcodeView(SingleObjectMixin, View):
 
     def get(self, request, *args, **kwargs):
         coupon = self.get_object()
-        barcode_svg = barcode.EAN13(coupon.barcode).render()
+        barcode_svg = (
+            barcode
+            .Code128(coupon.barcode)
+            .render({'text': coupon.barcode})
+        )
         return HttpResponse(
             barcode_svg, content_type='image/svg+xml'
         )

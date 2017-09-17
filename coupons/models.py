@@ -30,11 +30,10 @@ class Coupon(models.Model):
     )
     barcode = models.CharField(
         verbose_name='code-barres',
-        help_text='Code EAN13 (13 chiffres)',
         validators=[
-            RegexValidator(r'[0-9]{13}'),
+            RegexValidator(r'[0-9]+'),
         ],
-        max_length=13,
+        max_length=40,
     )
     category = models.ForeignKey(
         Category,
