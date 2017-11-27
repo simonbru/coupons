@@ -1,0 +1,29 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[packages]
+
+django-analytical = "==2.*"
+django-bootstrap3 = "==9.*"
+django_compressor = "==2.*"
+django-compressor-autoprefixer = "==0.1.*"
+django-ipware = "==1.*"
+Django = "==1.11.*"
+pyBarcode = "==0.8b1"
+python-decouple = "==3.*"
+
+
+[dev-packages]
+
+django-debug-toolbar = "==1.*"
+ipdb = "*"
+# ipython = "*"
+
+
+[requires]
+
+python_version = "3.6"
