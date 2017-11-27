@@ -46,7 +46,32 @@
         </div>
 
         <div class="collapse comment-form-details">
-          {% bootstrap_field comment_form.restaurant %}
+          {% with field=comment_form.restaurant %}
+            <div class="form-group {% if field.errors %} has-error {% endif %}">
+              <label class="control-label" for="{{ field.auto_id }}">
+                {{ field.label }}
+              </label>
+
+              <div class="restaurant-picker">
+                <button class="btn btn-default geoloc-refresh-btn" title="Récupérer localisation">
+                  {% bootstrap_icon 'screenshot' %}
+                </button>
+                <select name="{{ field.name }}" class="form-control" id="{{ field.auto_id }}" required>
+{#                  {% for id, label in field.field.choices %}#}
+{#                    <option value="{{ id }}">{{ label }}</option>#}
+{#                  {% endfor %}#}
+                  {% for option_widget in field.subwidgets %}
+                    {{ option_widget }}
+                  {% endfor %}
+                </select>
+              </div>
+
+              {% for error in field.errors %}
+                <div class="help-block">{{ error }}</div>
+              {% endfor %}
+            </div>
+          {% endwith %}
+
           {% bootstrap_button 'Envoyer' button_type='submit' %}
         </div>
       </form>

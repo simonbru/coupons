@@ -52,6 +52,14 @@ body {
     margin-top: 0;
 }
 
+.restaurant-picker {
+    display: flex;
+}
+
+.restaurant-picker .geoloc-refresh-btn {
+    margin-right: 10px;
+}
+
 /* Override bootstrap colors */
 body, a {
     color: #3B3B32;
