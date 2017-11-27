@@ -14,13 +14,14 @@ RUN apk add --update \
         # decide to sacrifice a bit of image size to save a lot of time.
         nodejs yarn libxslt \
     && rm -rf /var/cache/apk/*
+RUN pip3 install pipenv
 
 # python dependencies
-ADD requirements.txt $DEPLOY_PATH
+ADD Pipfile Pipfile.lock $DEPLOY_PATH
 RUN apk add --update --virtual=build-deps \
             g++ git python3-dev \
             libxml2-dev libxslt-dev libjpeg-turbo-dev \
-    && pip3 install -r $DEPLOY_PATH/requirements.txt \
+    && pipenv install --system --deploy \
     && apk del --purge build-deps \
     && rm -rf /var/cache/apk/*
 
