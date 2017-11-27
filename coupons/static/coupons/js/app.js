@@ -8,15 +8,42 @@ $(function() {
         })
     })
 
-    $('.geoloc-refresh-btn').each(function(index, form) {
-        $(form).on('click', function(e) {
-            retrieveAndStoreGeoloc(function() {
-                history.go(0);
-            });
-            return false;
+    $('.geoloc-refresh-btn').each(function(index, btn) {
+        var $btn = $(btn)
+        $btn.on('click', function(e) {
+            $btn.prop('disabled', true)
+            var reenableButton = function() {
+                $btn.prop('disabled', false)
+            }
+
+            retrieveAndStoreGeoloc(
+                function() {
+                    refreshSelectWidget('.restaurant-picker select', function() {
+                        reenableButton();
+                        $btn.css('color', 'rgb(0, 158, 0)')
+                    })
+                },
+                reenableButton
+            );
+            e.preventDefault()
         })
     })
 })
+
+function refreshSelectWidget(selector, callback) {
+    $.get(location.href)
+        .then(function(response) {
+            // Retrieve container element from response
+            var content = $('<div>').html(response).find(selector)
+            // Replace content of old container
+            $(selector).empty().append(content.children())
+            // Hack to ensure the right option is selected
+            $(selector).get(0).selectedIndex = 1
+            //$(selector).find('[selected]').prop('selected', true)
+        })
+        .catch(callback)
+        .then(callback)
+}
 
 function displayCommentForm(form) {
     var $form = $(form)
