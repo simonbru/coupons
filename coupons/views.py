@@ -1,5 +1,9 @@
-import barcode
 import itertools
+import json
+import numbers
+import urllib
+
+import barcode
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -50,6 +54,22 @@ class CouponListView(ListView):
         }
 
 
+def parse_geoloc_coords(cookietext):
+    try:
+        jsontext = urllib.parse.unquote(cookietext)
+        coords = json.loads(jsontext)
+    except json.JSONDecodeError as e:
+        raise ValueError(e)
+
+    if not (
+        isinstance(coords.get('lat'), numbers.Number) and
+        isinstance(coords.get('lon'), numbers.Number)
+    ):
+        raise ValueError("lat and lon must be numbers")
+
+    return coords
+
+
 class CouponDetailView(DetailView):
     model = Coupon
 
@@ -57,6 +77,18 @@ class CouponDetailView(DetailView):
         self.comment_form = CommentForm(initial={
             'restaurant': request.session.get('last_restaurant', None),
         })
+
+        # Sort restaurants using coordinates given in cookies
+        coords_cookie = request.COOKIES.get('coords')
+        if coords_cookie:
+            try:
+                coords = parse_geoloc_coords(coords_cookie)
+            except ValueError as e:
+                print("Warning: Could not parse geoloc coordinates.", e)
+            else:
+                self.comment_form.sort_restaurants_by_distance(
+                    coords['lat'], coords['lon']
+                )
         return super().get(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):

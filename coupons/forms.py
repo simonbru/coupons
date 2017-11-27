@@ -43,6 +43,14 @@ class CommentForm(forms.ModelForm):
             'restaurant',
         ]
 
+    def sort_restaurants_by_distance(self, lat, lon):
+        field = self.fields['restaurant']
+        field.queryset = Restaurant.objects.by_distance(lat, lon)
+        # Use closest restaurant as initial value if not already set
+        if self.get_initial_for_field(field, 'restaurant') is None:
+            self.initial['restaurant'] = field.queryset.first().pk
+
+
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
     #     # Order choice of restaurant by distance
