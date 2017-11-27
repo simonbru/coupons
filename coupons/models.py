@@ -1,5 +1,6 @@
 from django.core.validators import RegexValidator
 from django.db import models
+from django.shortcuts import resolve_url
 from django.utils.timezone import now
 
 
@@ -60,6 +61,9 @@ class Coupon(models.Model):
 
     def __str__(self):
         return f'{self.title} - {self.price}'
+
+    def get_absolute_url(self):
+        return resolve_url('coupon_detail', self.pk)
 
     def last_comment_per_place(self):
         places = {}
