@@ -1,5 +1,3 @@
-var docCookies;
-
 $(function() {
     $('.comment-form').each(function(index, form) {
         displayCommentForm(form)
@@ -11,8 +9,6 @@ $(function() {
     $('.geoloc-refresh-btn').each(function(index, btn) {
         var $btn = $(btn)
         $btn.on('click', function(e) {
-            e.preventDefault()
-
             $btn.prop('disabled', true)
             retrieveAndStoreGeoloc()
                 .then(function() {

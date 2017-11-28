@@ -53,7 +53,11 @@
               </label>
 
               <div class="restaurant-picker">
-                <button class="btn btn-default geoloc-refresh-btn" title="Récupérer localisation">
+                <button
+                    type="button"
+                    class="btn btn-default geoloc-refresh-btn"
+                    title="Récupérer localisation"
+                >
                   {% bootstrap_icon 'screenshot' %}
                 </button>
                 <select name="{{ field.name }}" class="form-control" id="{{ field.auto_id }}" required>
