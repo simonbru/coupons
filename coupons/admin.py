@@ -5,7 +5,8 @@ from coupons.models import Coupon, Category, Restaurant, Comment
 
 @admin.register(Coupon)
 class CouponAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['title', 'category', 'price', 'barcode']
+    search_fields = ['title', 'barcode']
 
 
 @admin.register(Category)
