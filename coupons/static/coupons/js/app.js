@@ -11,38 +11,30 @@ $(function() {
     $('.geoloc-refresh-btn').each(function(index, btn) {
         var $btn = $(btn)
         $btn.on('click', function(e) {
-            $btn.prop('disabled', true)
-            var reenableButton = function() {
-                $btn.prop('disabled', false)
-            }
-
-            retrieveAndStoreGeoloc(
-                function() {
-                    refreshSelectWidget('.restaurant-picker select', function() {
-                        reenableButton();
-                        $btn.css('color', 'rgb(0, 158, 0)')
-                    })
-                },
-                reenableButton
-            );
             e.preventDefault()
+
+            $btn.prop('disabled', true)
+            retrieveAndStoreGeoloc()
+                .then(function() {
+                    return refreshSelectWidget('.restaurant-picker select')
+                })
+                .then(function() { $btn.css('color', 'rgb(0, 158, 0)') })
+                .catch(console.log)
+                .always(function() { $btn.prop('disabled', false) })
         })
     })
 })
 
-function refreshSelectWidget(selector, callback) {
-    $.get(location.href)
-        .then(function(response) {
-            // Retrieve container element from response
-            var content = $('<div>').html(response).find(selector)
-            // Replace content of old container
-            $(selector).empty().append(content.children())
-            // Hack to ensure the right option is selected
-            $(selector).get(0).selectedIndex = 1
-            //$(selector).find('[selected]').prop('selected', true)
-        })
-        .catch(callback)
-        .then(callback)
+function refreshSelectWidget(selector) {
+    return $.get(location.href).then(function(response) {
+        // Retrieve container element from response
+        var content = $('<div>').html(response).find(selector)
+        // Replace content of old container
+        $(selector).empty().append(content.children())
+        // Hack to ensure the right option is selected
+        $(selector).get(0).selectedIndex = 1
+        //$(selector).find('[selected]').prop('selected', true)
+    })
 }
 
 function displayCommentForm(form) {
@@ -52,26 +44,28 @@ function displayCommentForm(form) {
     }
 }
 
-function retrieveAndStoreGeoloc(successCb, errorCb) {
+function retrieveAndStoreGeoloc() {
+    var deferred = $.Deferred()
     if (!('geolocation' in navigator)) {
-        errorCb("Geolocation API not available")
-        return;
+        deferred.reject("Geolocation API not available")
+    } else {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            console.log(position.coords)
+            var coords = {
+                lat: position.coords.latitude,
+                lon: position.coords.longitude
+            }
+            docCookies.setItem(
+                "coords", JSON.stringify(coords), Infinity, "/",
+                /*domain*/ null,
+                /*secure*/ true
+            )
+            deferred.resolve(coords)
+        }, function(positionErr) {
+            deferred.reject(positionErr)
+        })
     }
-    navigator.geolocation.getCurrentPosition(function(position) {
-        console.log(position.coords)
-        var coords = {
-            lat: position.coords.latitude,
-            lon: position.coords.longitude
-        }
-        docCookies.setItem(
-            "coords", JSON.stringify(coords), Infinity, "/",
-            /*domain*/ null,
-            /*secure*/ true
-        )
-        successCb(coords)
-    }, function(positionErr) {
-        errorCb(positionErr)
-    })
+    return deferred.promise()
 }
 
 
