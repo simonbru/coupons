@@ -19,7 +19,20 @@ $(function() {
                     return refreshSelectWidget('.restaurant-picker select')
                 })
                 .then(function() { $btn.css('color', 'rgb(0, 158, 0)') })
-                .catch(console.log)
+                .catch(function(err) {
+                    if (err.name !== "PositionError") {
+                        console.log(err)
+                        return
+                    }
+                    switch(err.code) {
+                        case err.POSITION_UNAVAILABLE:
+                            alert("Erreur. Avez-vous activé la localisation sur votre appareil ?")
+                            break
+                        case err.PERMISSION_DENIED:
+                            alert("Erreur: vous devez autoriser la localisation pour ce site.")
+                            break
+                    }
+                })
                 .always(function() { $btn.prop('disabled', false) })
         })
     })
@@ -73,6 +86,7 @@ function retrieveAndStoreGeoloc() {
             )
             deferred.resolve(coords)
         }, function(positionErr) {
+            positionErr.name = "PositionError"
             deferred.reject(positionErr)
         })
     }
