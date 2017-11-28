@@ -23,6 +23,17 @@ $(function() {
                 .always(function() { $btn.prop('disabled', false) })
         })
     })
+
+    // If permissions is already granted, transparently update geolocation.
+    // Does not work on Safari 11 (iOS and desktop) or MS Edge.
+    if ('permissions' in navigator) {
+        navigator.permissions.query({name: 'geolocation'})
+            .then(function(status) {
+                if (status.state === "granted") {
+                    retrieveAndStoreGeoloc()
+                }
+            })
+    }
 })
 
 function refreshSelectWidget(selector) {
