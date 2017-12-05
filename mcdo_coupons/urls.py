@@ -13,29 +13,28 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
 from django.contrib import admin
 from django.shortcuts import redirect
+from django.urls import include, path
 
 from coupons.views import (
-    FirstView,
     CouponListView,
     CouponDetailView,
     CouponBarcodeView)
 
 urlpatterns = [
-    url(r'^$', lambda r: redirect('coupon_list'), name='index'),
-    url(r'^coupons/$', CouponListView.as_view(), name='coupon_list'),
-    url(
-        r'^coupons/(?P<pk>\d+)/$',
+    path('', lambda r: redirect('coupon_list'), name='index'),
+    path('coupons/', CouponListView.as_view(), name='coupon_list'),
+    path(
+        'coupons/<int:pk>/',
         CouponDetailView.as_view(),
         name='coupon_detail'
     ),
-    url(
-        r'^coupons/(?P<pk>\d+)/barcode/$',
+    path(
+        'coupons/<int:pk>/barcode/',
         CouponBarcodeView.as_view(),
         name='coupon_barcode'
     ),
-    url(r'', include('django.contrib.auth.urls')),
-    url(r'^admin/', admin.site.urls),
+    path('', include('django.contrib.auth.urls')),
+    path('admin/', admin.site.urls),
 ]
