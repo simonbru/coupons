@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load bootstrap3 humanize %}
+{% load bootstrap3 humanize coupons_extra %}
 
 {% block content %}
   {% for category, coupons in by_category.items %}
@@ -27,6 +27,9 @@
                         {% bootstrap_icon 'remove-circle' extra_classes='text-danger' %}
                       {% endif %}
                       {{ place }}
+                      <small>
+                        - {{ comment.created_at|days_since }}j
+                      </small>
                     </div>
                   {% empty %}
                     <em>Jamais utilisé</em>
