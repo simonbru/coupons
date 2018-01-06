@@ -16,7 +16,7 @@
               </div>
               <div class="panel-body">
                 <div class="coupon-price">
-                  Prix: <strong>{{ coupon.price }} Fr.</strong>
+                  Prix: <strong>{{ coupon.price|floatformat:2 }} Fr.</strong>
                 </div>
                 <div class="comments">
                   {% for place, comment in coupon.last_comment_per_place.items %}
