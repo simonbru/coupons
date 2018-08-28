@@ -53,6 +53,11 @@ class Coupon(models.Model):
         default=False,
         help_text='Masque le coupon pour les utilisateurs anonymes',
     )
+    featured = models.BooleanField(
+        verbose_name='bon du moment',
+        default=True,
+        help_text='Apparaît dans les bons du moments',
+    )
 
     class Meta:
         verbose_name = 'coupon'
