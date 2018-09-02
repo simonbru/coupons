@@ -1,7 +1,4 @@
 import itertools
-import json
-import numbers
-import urllib
 
 import barcode
 from django.contrib import messages
@@ -16,6 +13,7 @@ from django.views.generic import (
 from django.views.generic.detail import SingleObjectMixin
 from ipware.ip import get_ip
 
+from .utils import parse_geoloc_coords
 from .forms import CommentForm
 from .models import Coupon
 
@@ -67,24 +65,9 @@ class RecentCouponListView(CouponListView):
         }
 
 
-def parse_geoloc_coords(cookietext):
-    try:
-        jsontext = urllib.parse.unquote(cookietext)
-        coords = json.loads(jsontext)
-    except json.JSONDecodeError as e:
-        raise ValueError(e)
-
-    if not (
-        isinstance(coords.get('lat'), numbers.Number) and
-        isinstance(coords.get('lon'), numbers.Number)
-    ):
-        raise ValueError("lat and lon must be numbers")
-
-    return coords
-
-
 class CouponDetailView(DetailView):
     model = Coupon
+    comment_form: CommentForm
 
     def get(self, request, *args, **kwargs):
         self.comment_form = CommentForm(initial={
