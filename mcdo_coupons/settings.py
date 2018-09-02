@@ -174,7 +174,7 @@ STATICFILES_DIRS = [
 
 MANAGERS = config(
     'MANAGERS',
-    default='root@localhost',
+    default='<root@localhost>',
     cast=Csv(
         cast=lambda item: re.search(r'(.*?)\s*<(.+)>', item).groups(),
         delimiter=','

@@ -41,6 +41,7 @@ RUN rm /etc/nginx/nginx.conf \
 
 
 ARG SECRET_KEY=dummykey
+ARG DEBUG=0
 RUN python3 manage.py compress --force \
     && python3 manage.py collectstatic --noinput
 
