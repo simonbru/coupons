@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+dj-email-url = "~= 0.1.0"
 django-analytical = "==2.*"
 django-bootstrap3 = "==9.*"
 django_compressor = "==2.*"

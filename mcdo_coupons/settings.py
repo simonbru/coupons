@@ -9,9 +9,10 @@ https://docs.djangoproject.com/en/1.11/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
+import dj_email_url
+from decouple import config, Csv
 
 import os
-from decouple import config, Csv
 from os import path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -164,6 +165,32 @@ STATICFILES_DIRS = [
     ('bootstrap', path.join(NODE_MODULES, 'bootstrap/dist/')),
     ('jquery', path.join(NODE_MODULES, 'jquery/dist')),
 ]
+
+
+# Email configuration
+
+MANAGERS = config(
+    'MANAGERS',
+    default='root@localhost',
+    cast=Csv(
+        cast=lambda item: re.search(r'(.*?)\s*<(.+)>', item).groups(),
+        delimiter=','
+    ),
+)
+
+SERVER_EMAIL = config('SERVER_EMAIL', 'McDo Bons <root@localhost>')
+EMAIL_SUBJECT_PREFIX = ''
+
+email_config = config('EMAIL_URL', default='console://', cast=dj_email_url.parse)
+EMAIL_FILE_PATH = email_config['EMAIL_FILE_PATH']
+EMAIL_HOST_USER = email_config['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD = email_config['EMAIL_HOST_PASSWORD']
+EMAIL_HOST = email_config['EMAIL_HOST']
+EMAIL_PORT = email_config['EMAIL_PORT']
+EMAIL_BACKEND = email_config['EMAIL_BACKEND']
+EMAIL_USE_TLS = email_config['EMAIL_USE_TLS']
+EMAIL_USE_SSL = email_config['EMAIL_USE_SSL']
+
 
 PIWIK_DOMAIN_PATH = config('PIWIK_DOMAIN_PATH', default=None)
 PIWIK_SITE_ID = config('PIWIK_SITE_ID', default=None)
