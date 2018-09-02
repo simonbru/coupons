@@ -65,7 +65,7 @@ class Coupon(models.Model):
         ordering = ('price', 'title')
 
     def __str__(self):
-        return f'{self.title} - {self.price}'
+        return f'{self.title} - {self.price:.2f}'
 
     def get_absolute_url(self):
         return resolve_url('coupon_detail', self.pk)
