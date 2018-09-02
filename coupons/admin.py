@@ -5,8 +5,9 @@ from coupons.models import Coupon, Category, Restaurant, Comment
 
 @admin.register(Coupon)
 class CouponAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'price', 'barcode', 'created_at']
+    list_display = ['title', 'category', 'price', 'barcode', 'created_at', 'featured']
     search_fields = ['title', 'barcode']
+    list_editable = ['featured']
 
 
 @admin.register(Category)

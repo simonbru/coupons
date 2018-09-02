@@ -2,6 +2,11 @@ body {
     margin-bottom: 25px;
 }
 
+.coupons-list-title {
+    margin-top: 10px;
+    margin-bottom: 35px;
+}
+
 .barcode-container {
     margin: auto;
     float: none;

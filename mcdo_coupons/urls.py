@@ -20,11 +20,14 @@ from django.urls import include, path
 from coupons.views import (
     CouponListView,
     CouponDetailView,
-    CouponBarcodeView)
+    CouponBarcodeView,
+    RecentCouponListView,
+)
 
 urlpatterns = [
     path('', lambda r: redirect('coupon_list'), name='index'),
     path('coupons/', CouponListView.as_view(), name='coupon_list'),
+    path('recent-coupons/', RecentCouponListView.as_view(), name='recent_coupon_list'),
     path(
         'coupons/<int:pk>/',
         CouponDetailView.as_view(),

@@ -17,7 +17,7 @@ from django.views.generic.detail import SingleObjectMixin
 from ipware.ip import get_ip
 
 from .forms import CommentForm
-from .models import Coupon, Category
+from .models import Coupon
 
 
 class FirstView(TemplateView):
@@ -50,7 +50,20 @@ class CouponListView(ListView):
     def get_context_data(self, **kwargs):
         return {
             **super().get_context_data(**kwargs),
+            'title': 'Tous les bons',
             'by_category': self.coupons_by_category(),
+        }
+
+
+class RecentCouponListView(CouponListView):
+    def get_queryset(self):
+        qs = super().get_queryset()
+        return qs.filter(featured=True)
+
+    def get_context_data(self, **kwargs):
+        return {
+            **super().get_context_data(**kwargs),
+            'title': 'Bons du moment',
         }
 
 

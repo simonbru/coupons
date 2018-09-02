@@ -3,6 +3,8 @@
 {% load bootstrap3 humanize coupons_extra %}
 
 {% block content %}
+  <h1 class="coupons-list-title">{{ title }}</h1>
+
   {% for category, coupons in by_category.items %}
     <h2>{{ category }}</h2>
 
