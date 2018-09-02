@@ -35,7 +35,7 @@ def send_warning_for_coupon(coupon, comment):
     subject = f'Signalement du bon pour "{coupon.title}"'
 
     body = """
-Le bon pour "{coupon.title}" a été signalé comme non-fonctionnel
+Le bon pour "{coupon_title}" a été signalé comme non-fonctionnel
 au restaurant "{restaurant}", alors qu'il est affiché dans les bons du moment.
 
 Voir le bon: {coupon_url}
@@ -62,7 +62,7 @@ Voir le bon dans l'admin: {coupon_admin_url}
     )
     mail_managers(
         subject,
-        message=body.format(render_context),
+        message=body.format(**render_context),
         html_message=format_html(body_html, **render_context),
         fail_silently=True
     )

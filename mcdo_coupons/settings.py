@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 ]
 
 if DEBUG:
+    # TODO: Add separate dev config
     INSTALLED_APPS += [
         'django_extensions',
     ]
