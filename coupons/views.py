@@ -13,7 +13,7 @@ from django.views.generic import (
 from django.views.generic.detail import SingleObjectMixin
 from ipware.ip import get_ip
 
-from .utils import parse_geoloc_coords
+from .utils import parse_geoloc_coords, send_warning_for_coupon
 from .forms import CommentForm
 from .models import Coupon
 
@@ -100,6 +100,8 @@ class CouponDetailView(DetailView):
                 "Votre note a bien été pris en compte."
             )
             request.session['last_restaurant'] = comment.restaurant_id
+            if coupon.featured and not comment.does_coupon_work:
+                send_warning_for_coupon(coupon, comment)
             return redirect('coupon_detail', self.get_object().id)
         else:
             return super().get(request, *args, **kwargs)

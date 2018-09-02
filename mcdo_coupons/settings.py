@@ -13,6 +13,7 @@ import dj_email_url
 from decouple import config, Csv
 
 import os
+import re
 from os import path
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -64,6 +65,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'mcdo_coupons.urls'
 
 LOGIN_URL = '/admin/login/'
+
+BASE_URL = config('BASE_URL', default='http://localhost:8000')
 
 TEMPLATES = [
     {
