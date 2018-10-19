@@ -4,22 +4,21 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-dj-email-url = "~= 0.1.0"
-django-analytical = "==2.*"
-django-bootstrap3 = "==9.*"
-django_compressor = "==2.*"
-django-compressor-autoprefixer = "==0.1.*"
-django-ipware = "==1.*"
-Django = "==2.0.*"
+dj-email-url = "*"
+django-analytical = "*"
+django-bootstrap3 = "*"
+django_compressor = "*"
+django-compressor-autoprefixer = "*"
+django-ipware = "*"
+Django = "*"
 pyBarcode = "==0.8b1"
-python-decouple = "==3.*"
+python-decouple = "*"
 
 [dev-packages]
-django-debug-toolbar = "==1.*"
-django-extensions = "~= 2.1.2"
-werkzeug = "~= 0.14.1"
-ipdb = "*"
+django-debug-toolbar = "*"
+django-extensions = "*"
 ipython = "*"
+werkzeug = "*"
 
 [requires]
 python_version = "3.6"
