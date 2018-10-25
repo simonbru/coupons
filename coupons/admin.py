@@ -8,6 +8,7 @@ class CouponAdmin(admin.ModelAdmin):
     list_display = ['title', 'category', 'price', 'barcode', 'created_at', 'featured', 'display_active']
     search_fields = ['title', 'barcode']
     list_editable = ['featured']
+    save_as = True
 
     def display_active(self, obj=None):
         return obj and not obj.disabled
