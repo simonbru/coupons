@@ -11,6 +11,9 @@ class CouponForm(forms.ModelForm):
         widgets = {
             'title': TextInputWithAutocomplete(
                 choices=lazy_list_of_unique_coupon_titles(),
+                attrs={
+                    'size': 50,
+                }
             ),
         }
 
