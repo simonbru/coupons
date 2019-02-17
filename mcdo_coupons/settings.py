@@ -52,6 +52,7 @@ if DEBUG:
     # TODO: Add separate dev config
     INSTALLED_APPS += [
         'django_extensions',
+        'debug_toolbar',
     ]
 
 MIDDLEWARE = [
@@ -63,6 +64,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE = [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ] + MIDDLEWARE
+
+INTERNAL_IPS = config('INTERNAL_IPS', default='127.0.0.1', cast=Csv())
 
 ROOT_URLCONF = 'mcdo_coupons.urls'
 
