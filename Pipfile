@@ -10,7 +10,7 @@ django-bootstrap3 = "*"
 django_compressor = "*"
 django-compressor-autoprefixer = "*"
 django-ipware = "*"
-Django = "*"
+django = "*"
 pyBarcode = "==0.8b1"
 python-decouple = "*"
 
@@ -21,4 +21,4 @@ ipython = "*"
 werkzeug = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3"
