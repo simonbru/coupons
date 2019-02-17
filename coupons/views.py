@@ -26,7 +26,11 @@ class CouponListView(ListView):
     model = Coupon
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = (
+            super().get_queryset()
+            .with_latest_comment_per_place()
+            .select_related('category')
+        )
         if self.request.user.is_anonymous:
             return queryset.filter(disabled=False)
         else:
@@ -68,6 +72,9 @@ class RecentCouponListView(CouponListView):
 class CouponDetailView(DetailView):
     model = Coupon
     comment_form: CommentForm
+
+    def get_queryset(self):
+        return super().get_queryset().with_latest_comment_per_place()
 
     def get(self, request, *args, **kwargs):
         self.comment_form = CommentForm(initial={

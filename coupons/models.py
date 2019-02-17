@@ -19,6 +19,15 @@ class Category(models.Model):
         return self.title
 
 
+class CouponQuerySet(models.QuerySet):
+    def with_latest_comment_per_place(self):
+        return self.prefetch_related(models.Prefetch(
+            'comments',
+            Comment.objects.order_by('-created_at').select_related('restaurant'),
+            '_comments_by_creation_with_restaurant',
+        ))
+
+
 class Coupon(models.Model):
     title = models.CharField(
         verbose_name='titre',
@@ -59,6 +68,8 @@ class Coupon(models.Model):
         help_text='Apparaît dans les bons du moments',
     )
 
+    objects = CouponQuerySet.as_manager()
+
     class Meta:
         verbose_name = 'coupon'
         verbose_name_plural = 'coupons'
@@ -70,12 +81,14 @@ class Coupon(models.Model):
     def get_absolute_url(self):
         return resolve_url('coupon_detail', self.pk)
 
-    def last_comment_per_place(self):
+    def latest_comment_per_place(self):
+        if not hasattr(self, '_comments_by_creation_with_restaurant'):
+            raise ValueError("Can only be called on with_latest_comment_per_place() querysets")
         places = {}
-        for comment in self.comments.order_by('-created_at'):
+        for comment in self._comments_by_creation_with_restaurant:
             if comment.restaurant not in places:
                 places[comment.restaurant] = comment
-        return places
+        return places.values()
 
 
 class RestaurantManager(models.Manager):

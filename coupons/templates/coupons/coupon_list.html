@@ -23,14 +23,14 @@
                   Prix: <strong>{{ coupon.price|floatformat:2 }} Fr.</strong>
                 </div>
                 <div class="comments">
-                  {% for place, comment in coupon.last_comment_per_place.items %}
+                  {% for comment in coupon.latest_comment_per_place %}
                     <div>
                       {% if comment.does_coupon_work %}
                         {% bootstrap_icon 'ok-circle' extra_classes='text-success' %}
                       {% else %}
                         {% bootstrap_icon 'remove-circle' extra_classes='text-danger' %}
                       {% endif %}
-                      {{ place }}
+                      {{ comment.restaurant }}
                       <small>
                         - {{ comment.created_at|days_since }}j
                       </small>
