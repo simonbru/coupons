@@ -11,7 +11,7 @@ django_compressor = "*"
 django-compressor-autoprefixer = "*"
 django-ipware = "*"
 django = "*"
-pyBarcode = "==0.8b1"
+python-barcode = "*"
 python-decouple = "*"
 
 [dev-packages]
