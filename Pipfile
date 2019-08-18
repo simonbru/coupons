@@ -22,3 +22,7 @@ werkzeug = "*"
 
 [requires]
 python_version = "3"
+
+[scripts]
+serve = "python manage.py runserver"
+build = "sh -c 'docker build --pull . -t coupons:$(git describe)'"
